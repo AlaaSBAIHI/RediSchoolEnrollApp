@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_profile"
+            android:icon="@drawable/ic_menu_camera"
+            android:title="Profile" />
+        <item
+            android:id="@+id/nav_locations"
+            android:icon="@android:drawable/ic_dialog_map"
+            android:title="Locations" />
+    </group>
+
+    <item android:title=" Courses">
+        <menu>
+            <item
+                android:id="@+id/nav_courses"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Courses" />
+            <item
+                android:id="@+id/nav_my_courses"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="My Courses" />
+            <item
+                android:id="@+id/nav_apply"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Apply" />
+        </menu>
+    </item>
+    <item
+        android:id="@+id/nav_about"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="About">
+        <menu>
+            <item
+                android:id="@+id/nav_about_redi"
+                android:title="ReDi School" />
+            <item
+                android:id="@+id/nav_about_app"
+                android:title="App" />
+        </menu>
+    </item>
+
+</menu>

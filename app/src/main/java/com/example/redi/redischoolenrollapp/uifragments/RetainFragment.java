@@ -1,12 +1,15 @@
 package com.example.redi.redischoolenrollapp.uifragments;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.widget.Toast;
 
+import com.example.redi.redischoolenrollapp.activities.SignUpActivity;
+import com.example.redi.redischoolenrollapp.activities.UserMainActivity;
 import com.example.redi.redischoolenrollapp.entities.User;
 import com.example.redi.redischoolenrollapp.entities.UserType;
 import com.example.redi.redischoolenrollapp.http.RestClient;
@@ -26,9 +29,9 @@ import retrofit2.Response;
 public class RetainFragment extends Fragment {
 
     List<User> userList = new ArrayList<>();
-    ProgressDialog progressDialog;
-    private UserService userService = RestClient.getInstance().createService(UserService.class, "", "");
+    private UserService userService = RestClient.getInstance().createService(UserService.class);
     private User user = null;
+    private ProgressDialog progressDialog;
 
     @NonNull
     private ProgressDialog createProgressDialog() {
@@ -38,16 +41,6 @@ public class RetainFragment extends Fragment {
         progressDialog.show();
         return progressDialog;
     }
-
-    public void waitTo() {
-
-        try {
-            Thread.currentThread().sleep(3000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -59,6 +52,7 @@ public class RetainFragment extends Fragment {
     public User signUp(final String firstName, final String lastName, final UserType userType, final String email,
                        final String password, final String confirmPassword, final String address, final String describe) {
 
+        createProgressDialog();
         Call<User> call = userService.getUserByEmail(email);
 
         call.enqueue(new Callback<User>() {
@@ -67,7 +61,7 @@ public class RetainFragment extends Fragment {
                 if (response.isSuccessful()) {
                     user = response.body();
                     if (user != null) {
-                        //progressDialog.dismiss();
+                        progressDialog.dismiss();
                         Toast.makeText(getActivity(), "This Email is exist! Please Try another one", Toast.LENGTH_LONG).show();
                     } else {
                         /////////////////////////////////
@@ -80,8 +74,10 @@ public class RetainFragment extends Fragment {
                                     user = response.body();
                                     if (user != null) {
                                         userList.add(response.body());
-                                        //     progressDialog.dismiss();
                                         showMessageSuccessful("Sign Up successful for ", user.getFirstName());
+                                        progressDialog.dismiss();
+                                        getContext().startActivity(new Intent(getContext(), UserMainActivity.class));
+
                                     }
                                 }
                             }
@@ -89,11 +85,9 @@ public class RetainFragment extends Fragment {
                             @Override
                             public void onFailure(Call<User> call, Throwable t) {
                                 user = null;
-                                //   progressDialog.dismiss();
                                 showNetError();
                             }
                         });
-
                     }
                 }
             }
@@ -101,7 +95,6 @@ public class RetainFragment extends Fragment {
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 user = null;
-                //  progressDialog.dismiss();
                 showNetError();
             }
         });
@@ -110,6 +103,9 @@ public class RetainFragment extends Fragment {
 
 
     public User logIn(String email, String password) {
+
+        createProgressDialog();
+
         Call<User> call = userService.login(email, password);
 
         call.enqueue(new Callback<User>() {
@@ -117,9 +113,16 @@ public class RetainFragment extends Fragment {
             public void onResponse(Call<User> call, Response<User> response) {
                 if (response.isSuccessful()) {
                     user = response.body();
-                    if (user != null) {
+                    if (user == null) {
+                        progressDialog.dismiss();
+                        getContext().startActivity(new Intent(getContext(), SignUpActivity.class));
                         userList.add(response.body());
                         //showMessageSuccessful("", response.body().getEmail().toString());
+                    } else {
+                        progressDialog.dismiss();
+                        getContext().startActivity(new Intent(getContext(), UserMainActivity.class));
+
+
                     }
 
                 }
@@ -127,6 +130,10 @@ public class RetainFragment extends Fragment {
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
+
+                System.out.println(t.getMessage());
+                System.out.println(call.request().url());
+                System.out.println(call.request().headers().toString());
                 showNetError();
             }
         });

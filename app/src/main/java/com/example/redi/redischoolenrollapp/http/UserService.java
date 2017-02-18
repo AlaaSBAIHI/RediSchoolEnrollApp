@@ -22,7 +22,7 @@ public interface UserService {
     })
 
     @FormUrlEncoded
-    @POST("user/signUp/")
+    @POST("api/user/signUp/")
     Call<User> signUp(@Field("firstName") String firstName, @Field("lastName") String lastName,
                       @Field("userType") UserType userType, @Field("email") String email,
                       @Field("password") String password, @Field("passwordConfirm") String passwordConfirm,
@@ -34,7 +34,7 @@ public interface UserService {
             "Content-Type: application/x-www-form-urlencoded"
     })
     @FormUrlEncoded
-    @POST("user/login")
+    @POST("api/user/login/")
     Call<User> login(@Field("email") String email, @Field("password") String password);
 
 
@@ -42,7 +42,7 @@ public interface UserService {
             "Accept: application/json",
             "Content-Type: application/json"
     })
-    @GET("user/email")
+    @GET("api/user/email")
     Call<User> getUserByEmail(@Query("email") String email);
 
 

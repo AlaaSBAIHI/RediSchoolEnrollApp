@@ -8,44 +8,53 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.redi.redischoolenrollapp.R;
-import com.example.redi.redischoolenrollapp.databinding.ActivityMainBinding;
-import com.example.redi.redischoolenrollapp.uifragments.RetainFragment;
+import com.example.redi.redischoolenrollapp.databinding.ActivityLoginBinding;
 import com.example.redi.redischoolenrollapp.viewModels.LoginViewModel;
 
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
-    public static final String NETWORK_FRAGMENT_TAG = "NETWORK_FRAGMENT";
+/*    public static final String NETWORK_FRAGMENT_TAG = "NETWORK_FRAGMENT";
 
-    private RetainFragment retainFragment;
+    private RetainFragment retainFragment;*/
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ActivityMainBinding binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        ActivityLoginBinding loginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
 
-        LoginViewModel loginViewModel = LoginViewModel.builder().retainFragment(getRetainFragment()).context(this).build();
+        LoginViewModel loginViewModel = LoginViewModel.builder().context(this).build();
 
-        binding.setLoginViewModel(loginViewModel);
+        loginBinding.setLoginViewModel(loginViewModel);
 
 
         Button signUp = (Button) findViewById(R.id.login_btn_signUp);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MainActivity.this, SignUpActivity.class));
+                startActivity(new Intent(LoginActivity.this, SignUpActivity.class));
+                //startActivity(new Intent(LoginActivity.this, UserMainActivity.class));
 
             }
         });
 
 
+        Button main = (Button) findViewById(R.id.login_btn_main);
+        main.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, UserMainActivity.class));
+
+            }
+        });
+
     }
 
 
-    public RetainFragment getRetainFragment() {
+/*    public RetainFragment getRetainFragment() {
         retainFragment = (RetainFragment) getSupportFragmentManager().findFragmentByTag(NETWORK_FRAGMENT_TAG);
         if (retainFragment == null) {
             retainFragment = new RetainFragment();
@@ -53,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return retainFragment;
-    }
+    }*/
 
 
 }

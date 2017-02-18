@@ -17,10 +17,13 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
  */
 
 public class RestClient {
-    private static final String URL = "http://192.168.178.131:8080/api/";
-    /*private static final String USERNAME = "";
+    /*
+        private static final String URL = "http://192.168.56.1:8080/api/";
+    */
+    private static final String URL = "https://redi-api.herokuapp.com";
+    private static final String USERNAME = "";
     private static final String PASSWORD = "";
-*/
+
     private static final String AUTHORIZATION_KEY = "authorization";
     private static final String ACCEPT_KEY = "accept";// Response Type
     private static final String ACCEPT_VALUE = "application/json";
@@ -47,8 +50,8 @@ public class RestClient {
     }
 
 
-    public <S> S createService(Class<S> serviceClass, final String email, final String password) {
-        final String credentials = email + ":" + password;
+    public <S> S createService(Class<S> serviceClass) {
+        final String credentials = USERNAME + ":" + PASSWORD;
         final String basic = "Basic " + Base64.encodeToString(credentials.getBytes(),
                 Base64.NO_WRAP);
 

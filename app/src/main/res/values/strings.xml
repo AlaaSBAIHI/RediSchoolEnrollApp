@@ -14,7 +14,7 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
-    <string name="login_message">This account is not exist, please try again or Sign Up, if you do not have one!</string>
+    <string name="login_message">The Email or Password are not right, please try again or Sign Up, if you do not have account!</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="login">login</string>
@@ -25,4 +25,18 @@
     <string name="address">Address</string>
     <string name="description">Description</string>
     <string name="register">Register</string>
+    <string name="title_activity_user_main">UserMainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="course_name">Name</string>
+    <string name="course_url">URL</string>
+    <string name="course_save">save</string>
+    <string name="apply_motivation_letter">Motivation Letter</string>
+    <string name="apply_apply">apply</string>
 </resources>

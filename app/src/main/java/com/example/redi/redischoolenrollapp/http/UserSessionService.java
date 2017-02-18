@@ -19,17 +19,27 @@ import retrofit2.http.Path;
 
 public interface UserSessionService {
 
-    @PATCH("apply/{id}")
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @PATCH("user/apply/{id}")
     Call<List<Course>> apply(@Path("id") long id, @Body List<UUID> coursesIds);
 
-    @GET("user/{id}")
-    Call<User> getUserById(@Path("id") long id);
 
     @Headers({
             "Accept: application/json",
             "Content-Type: application/json"
     })
-    @GET("/user")
+    @GET("user/{id}")
+    Call<User> getUserById(@Path("id") long id);
+
+
+    @Headers({
+            "Accept: application/json",
+            "Content-Type: application/json"
+    })
+    @GET("user/")
     Call<List<User>> getUsers();
 
 }
